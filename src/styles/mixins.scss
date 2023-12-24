@@ -1,0 +1,24 @@
+@mixin flex() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin center() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin component() {
+    box-shadow: $box-shadow;
+    background: $bg-component;
+    border-radius: 7px;
+}
+
+@mixin button() {
+    background: $bg-component;
+    box-shadow: $button-box-shadow;
+    border-radius: 5px;
+}
