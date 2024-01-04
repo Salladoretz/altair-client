@@ -1,9 +1,8 @@
-import ContractRegister from '../../features/contractRegister'
-
 const Home = () => {
+
   return (
     <div>
-      <ContractRegister />
+      Home
     </div>
   )
 }

@@ -1,0 +1,35 @@
+.login {
+    @include component();
+    @include center();
+    height: fit-content;
+    max-width: 340px;
+    font-size: 12px;
+    padding: 10px;
+
+    &-form {
+
+        @include flex();
+        flex-direction: column;
+        gap: 10px;
+
+        .login-input {
+
+            @include flex();
+            flex-direction: column;        
+        
+            input {
+                width: 100px;
+                height: 24px;
+                text-align: center;
+                box-shadow: $input-box-shadow;
+                border-radius: 10px;
+            }
+        }
+
+        .login-error {
+            color: $color-error;
+            height: 20px;
+            width: 100%;
+        }
+    }
+}

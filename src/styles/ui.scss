@@ -10,3 +10,10 @@
 .customButton:active {
     box-shadow: $button-box-shadow_active;
 }
+
+.custom-close-button {
+    position: absolute;
+    top: 0px;
+    right: 4px;
+    padding: 4px;
+}

@@ -1,0 +1,120 @@
+.partners{
+    min-height: 100%;
+    max-width: 1200px;
+    width: 100%;
+    padding: 8px;
+
+    &--title {
+        @include flex();
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+
+    &--list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .partners-row{
+            
+            max-width: 340px;
+
+            &--card{
+                @include component();
+                display: flex;
+                font-size: 10px;
+                justify-content: space-between;
+                height: 80px;
+                margin-bottom: 4px;
+            }
+            &--title {
+                padding: 8px;
+                width: 240px;
+            }
+
+            &--info {
+                display: flex;
+                flex-direction: column;
+                padding-top: 10px;
+            }
+
+            &--numbers {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px 8px 0px 8px;        
+                width: 30px;
+            }
+        }        
+
+        .contract-row{
+                @include component();
+                font-size: 10px;
+                margin-bottom: 4px;
+                padding: 8px;
+                background: $bg-contract;
+
+            &--card {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            &--title {
+                h4 {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+                h3{
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: $color-place
+                }
+
+            }
+        }
+        .addendum-row{
+            @include component();
+            font-size: 10px;
+            margin-bottom: 4px;
+            padding: 8px;
+            background: $bg-addendum;
+
+            &--card {
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            &--title {
+                h4 {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+                h3 {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: $color-place;
+                }
+            }
+
+            &--info {
+                display: flex;
+                padding-top: 10px;
+                gap: 8px;
+            }
+
+            &--numbers {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px 8px 0px 8px;        
+                width: 30px;
+            }
+        }
+
+        .other-docs-row{
+            background: $bg-other-doc;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+.info-card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    position: absolute;
+    top: 5%;
+    right: 8%;
+    font-size: 14px;
+    gap: 8px;
+
+        p{
+           font-size: 12px;
+           line-height: 14px;
+           padding: 4px; 
+        }
+
+    .info-card--partner {
+        @include component();
+        position: relative;
+        padding: 4px;
+    }
+
+    .info-card--contract {
+        @include component();
+        position: relative;
+        padding: 4px;
+    }
+
+}

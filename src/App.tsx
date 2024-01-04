@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/header'
-import Home from './components/home'
 import Login from './features/login'
+import Partners from './features/partners/partners'
 
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
                 <div className='content'>
                     <Routes>
                         <Route path='login' element={<Login />} />
-                        <Route path='/' element={<Home />} />
+                        <Route path='/' element={<Partners />} />
                     </Routes>
                 </div>
             </div>
