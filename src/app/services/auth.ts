@@ -13,16 +13,16 @@ export const authApi = api.injectEndpoints({
             query: (userForLogin) => ({
                 url: '/user/login',
                 method: 'POST',
-                body: userForLogin,
-            }),
+                body: userForLogin
+            })
         }),
 
         register: builder.mutation<ResponseLoginData, UserForLogin>({
             query: (userForLogin) => ({
                 url: '/user/register',
                 method: 'POST',
-                body: userForLogin,
-            }),
+                body: userForLogin
+            })
         }),
 
         current: builder.query<ResponseLoginData, void>({

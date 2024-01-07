@@ -1,7 +1,8 @@
 export const dateFormatter = dateString => {
 
-    let result = dateString.split('T', 1).toString().split('-')
+    if (dateString != null) {
+        let result = dateString?.split('T', 1).toString().split('-')
 
-    return `${result[2]}.${result[1]}.${result[0]}`
-
+        return `${result[2]}.${result[1]}.${result[0]}`
+    }
 }

@@ -21,7 +21,11 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder
             .addMatcher(partnersApi.endpoints.getAllPartners.matchFulfilled, (state, action) => {
-                state.partners = action.payload;
+                state.partners = action.payload
+            })
+            .addMatcher(partnersApi.endpoints.editPartner.matchFulfilled, (state, action) => {
+                let index = state.partners?.findIndex(el => el.id === action.payload.id)
+                if (state.partners && index) { state.partners[index] = action.payload }
             })
     }
 })

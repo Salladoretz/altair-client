@@ -27,7 +27,6 @@ const Login = () => {
 
         try {
             await loginUser(form).unwrap()
-
             navigate('/')
 
         } catch (err) {

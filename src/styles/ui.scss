@@ -1,3 +1,27 @@
+input {
+    background: white;
+    width: 100px;
+    height: 24px;
+    text-align: center;
+    box-shadow: $input-box-shadow;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+textarea {
+    background: white;
+    width: 100px;
+    box-shadow: $input-box-shadow;
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 4px;
+}
+
+textarea::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
 .customButton {
 @include button();
     padding: 0.5rem;

@@ -5,6 +5,8 @@ import { dateFormatter } from "../../app/utils/date-formatter"
 import AddendumRow from "./addendumRow"
 import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
+import { useAppDispatch } from "../../app/hooks"
+import { toggleCard } from "../../components/info-cards/infoCardSlice"
 
 const ContractRow = (props) => {
 
@@ -13,6 +15,8 @@ const ContractRow = (props) => {
     const addendums = contract.createdAddendum
     const otherDocs = contract.createdOtherContractDocs
 
+    const dispatch = useAppDispatch()
+
     return (
         <div className='contract-row'>
             <div className='contract-row--card'>
@@ -20,12 +24,20 @@ const ContractRow = (props) => {
                     <h4>Договор № {contract.contractNumber} от {dateFormatter(contract.contractDate)}</h4>
                     <h3>{contract.place.name}</h3>
                 </div>
-                <HaveOriginal original={contract.original} />
-                <CloudCopyLink link={contract.cloudCopy} />
-                <div className='partners-row--numbers'>
-                    <h3>{addendums.length}/{otherDocs.length}</h3>
+                <div>
+                    <div className='contract-row--info'>
+                        <HaveOriginal original={contract.original} />
+                        <CloudCopyLink link={contract.cloudCopy} />
+                    </div>
+                    <div className='contract-row--infoBtn'>
+                        <button onClick={() => dispatch(toggleCard(contract))}>Info</button>
+                    </div>
+                </div>
+
+                <div className='contract-row--numbers'>
+                    <h3>{addendums.length}</h3>
                     <button onClick={() => setOpenDocs(!openDocs)}>
-                        {openDocs || addendums.length + otherDocs.length < 1 ? <MinusCircleTwoTone /> : <PlusCircleTwoTone />}
+                        {openDocs || addendums.length < 1 ? <MinusCircleTwoTone /> : <PlusCircleTwoTone />}
                     </button>
                 </div>
             </div>
@@ -37,11 +49,9 @@ const ContractRow = (props) => {
                     : ''
             }
             {
-                openDocs ?
-                    otherDocs.map(item =>
-                        <OtherDocsRow key={item.id} otherDoc={item} />
-                    )
-                    : ''
+                otherDocs?.map(item =>
+                    <OtherDocsRow key={item.id} otherDoc={item} />
+                )
             }
         </div>
     )

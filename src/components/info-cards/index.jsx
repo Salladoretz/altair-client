@@ -14,11 +14,11 @@ const InfoCards = () => {
                 cards.infoCard.map(
                     i => {
                         if (i.hasOwnProperty('inn')) {
-                            return <PartnerCard info={i} />
+                            return <PartnerCard key={i.id} info={i} />
                         } else if (i.hasOwnProperty('contractNumber')) {
-                            return <ContractCard info={i} />
+                            return <ContractCard key={i.id} info={i} />
                         } else if (i.hasOwnProperty('addendumNumber')) {
-                            return <AddendumCard info={i} />
+                            return <AddendumCard key={i.id} info={i} />
                         }
                     }
                 )

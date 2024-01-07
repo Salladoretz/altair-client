@@ -1,11 +1,11 @@
 import { FileDoneOutlined, FileExcelOutlined } from "@ant-design/icons"
 
 
-const HaveOriginal = (original) => {
+const HaveOriginal = ({ original }) => {
 
     return (
         <div>
-            {original.original
+            {original
                 ? <FileDoneOutlined style={{ color: 'limegreen', fontSize: '14px' }} />
                 : <FileExcelOutlined style={{ color: 'red', fontSize: '14px' }} />
             }

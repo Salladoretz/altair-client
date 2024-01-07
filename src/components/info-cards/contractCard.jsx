@@ -12,12 +12,12 @@ const ContractCard = (props) => {
     return (
         <div className='info-card--contract'>
             <CustomCloseButton onClick={() => dispatch(removeInfoCard(contract.id))} />
-            <p>Договор № {contract.contractNumber} от {dateFormatter(contract.contractDate)}</p>
-            <p>Контрагент: {contract.partnerId}</p>
-            <p>Тип: {contract.contractType.title}</p>
-            <p>Место: {contract.place.name}</p>
-            <p>Дополнительные соглашения: {contract.createdAddendum.length} </p>
-            <p>Комментарии: {contract.comments}</p>
+            <p>Договор № {contract?.contractNumber} от {dateFormatter(contract.contractDate)}</p>
+            <p>Контрагент: {contract?.partner.name}</p>
+            <p>Тип: {contract?.contractType.title}</p>
+            <p>Место: {contract?.place.name}</p>
+            <p>Дополнительные соглашения: {contract?.createdAddendum.length} </p>
+            <p>Комментарии: {contract?.comments}</p>
 
         </div>
     )
