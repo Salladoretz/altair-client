@@ -4,6 +4,7 @@ import { isErrorWithMessage } from '../../app/utils/error-checker'
 import CustomButton from '../../components/UI/custom-button'
 import CustomCloseButton from '../../components/UI/custom-close-button'
 import { useNavigate } from 'react-router-dom'
+import { dateForInput, dateFormatter } from '../../app/utils/date-formatter'
 
 
 const PartnerForm = (props) => {
@@ -30,6 +31,9 @@ const PartnerForm = (props) => {
         boss: partner.boss,
         comments: partner.comments
     })
+
+    console.log(form)
+
     const [error, setError] = useState('')
 
     const changeHandler = event => {
@@ -101,7 +105,7 @@ const PartnerForm = (props) => {
                             type="date"
                             name='ogrnDate'
                             onChange={changeHandler}
-                            value={form.ogrnDate?.split('T', 1) || ''}
+                            value={dateForInput(form.ogrnDate) || ''}
                         />
                     </div>
                     <div className='partner-form--input'>

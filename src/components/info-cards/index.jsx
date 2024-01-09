@@ -6,12 +6,12 @@ import PartnerCard from './partnerCard'
 
 const InfoCards = () => {
 
-    const cards = useAppSelector(state => state.infoCards)
+    const cards = useAppSelector(state => state.infoCards.infoCard)
 
     return (
         <div className='info-card'>
             {
-                cards.infoCard.map(
+                cards?.map(
                     i => {
                         if (i.hasOwnProperty('inn')) {
                             return <PartnerCard key={i.id} info={i} />
@@ -20,6 +20,7 @@ const InfoCards = () => {
                         } else if (i.hasOwnProperty('addendumNumber')) {
                             return <AddendumCard key={i.id} info={i} />
                         }
+                        return i
                     }
                 )
             }
