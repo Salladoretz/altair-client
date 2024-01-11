@@ -3,16 +3,13 @@ import { useEditPartnerMutation } from '../../app/services/partners'
 import { isErrorWithMessage } from '../../app/utils/error-checker'
 import CustomButton from '../../components/UI/custom-button'
 import CustomCloseButton from '../../components/UI/custom-close-button'
-import { useNavigate } from 'react-router-dom'
-import { dateForInput, dateFormatter } from '../../app/utils/date-formatter'
+import { toLocalDate } from '../../app/utils/date-formatter'
 
 
 const PartnerForm = (props) => {
 
     const close = props.close
     const partner = props.partner
-
-    const navigate = useNavigate()
 
     const [form, setForm] = useState({
         id: partner.id,
@@ -31,8 +28,6 @@ const PartnerForm = (props) => {
         boss: partner.boss,
         comments: partner.comments
     })
-
-    console.log(form)
 
     const [error, setError] = useState('')
 
@@ -105,7 +100,7 @@ const PartnerForm = (props) => {
                             type="date"
                             name='ogrnDate'
                             onChange={changeHandler}
-                            value={dateForInput(form.ogrnDate) || ''}
+                            value={toLocalDate(form.ogrnDate) || ''}
                         />
                     </div>
                     <div className='partner-form--input'>

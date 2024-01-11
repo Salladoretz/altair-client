@@ -1,4 +1,4 @@
-import { dateFormatter } from "../../app/utils/date-formatter"
+import { toLocalDate } from "../../app/utils/date-formatter"
 import CustomCloseButton from "../UI/custom-close-button"
 import { useAppDispatch } from '../../app/hooks'
 import { removeInfoCard } from "./infoCardSlice"
@@ -12,7 +12,7 @@ const PartnerCard = (props) => {
     return (
         <div className='info-card--partner'>
             <p>{partner?.name}</p>
-            <p>ОГРН: {partner?.ogrn} от {dateFormatter(partner.ogrnDate)}</p>
+            <p>ОГРН: {partner?.ogrn} от {toLocalDate(partner.ogrnDate)}</p>
             <p>ИНН: {partner?.inn} / КПП: {partner?.kpp}</p>
             <p>Адрес: {partner?.address1}</p>
             <p>Дополнительный адрес: {partner?.address2}</p>

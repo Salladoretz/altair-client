@@ -1,4 +1,4 @@
-import { dateFormatter } from "../../app/utils/date-formatter"
+import { toLocalDate } from "../../app/utils/date-formatter"
 import { useAppDispatch } from '../../app/hooks'
 import { removeInfoCard } from "./infoCardSlice"
 import CustomCloseButton from "../UI/custom-close-button"
@@ -12,7 +12,7 @@ const ContractCard = (props) => {
     return (
         <div className='info-card--contract'>
             <CustomCloseButton onClick={() => dispatch(removeInfoCard(contract.id))} />
-            <p>Договор № {contract?.contractNumber} от {dateFormatter(contract.contractDate)}</p>
+            <p>Договор № {contract?.contractNumber} от {toLocalDate(contract.contractDate)}</p>
             <p>Контрагент: {contract?.partner.name}</p>
             <p>Тип: {contract?.contractType.title}</p>
             <p>Место: {contract?.place.name}</p>

@@ -1,4 +1,4 @@
-import { dateFormatter } from "../../app/utils/date-formatter"
+import { toLocalDate } from "../../app/utils/date-formatter"
 import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
 import OtherDocsRow from "./otherDocsRow"
@@ -19,7 +19,7 @@ const AddendumRow = (props) => {
         <div className='addendum-row'>
             <div className='addendum-row--card'>
                 <div className='addendum-row--title'>
-                    <h4>ДС № {addendum.addendumNumber} от {dateFormatter(addendum.addendumDate)}</h4>
+                    <h4>ДС № {addendum.addendumNumber} от {toLocalDate(addendum.addendumDate)}</h4>
                     <h3>{addendum.place.name}</h3>
                 </div>
                 <div>
