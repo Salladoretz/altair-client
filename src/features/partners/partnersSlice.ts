@@ -5,11 +5,11 @@ import { RootState } from '../../app/store'
 
 
 interface InitialState {
-    partners: TPartner[] | null
+    partners: TPartner[]
 }
 
 const initialState: InitialState = {
-    partners: null
+    partners: []
 }
 
 const slice = createSlice({
@@ -23,9 +23,15 @@ const slice = createSlice({
             .addMatcher(partnersApi.endpoints.getAllPartners.matchFulfilled, (state, action) => {
                 state.partners = action.payload
             })
+            .addMatcher(partnersApi.endpoints.addPartner.matchFulfilled, (state, action) => {
+                state.partners.push(action.payload)
+            })
             .addMatcher(partnersApi.endpoints.editPartner.matchFulfilled, (state, action) => {
-                let index = state.partners?.findIndex(el => el.id === action.payload.id)
-                if (state.partners && index) { state.partners[index] = action.payload }
+                let index = state.partners.findIndex(el => el.id === action.payload.id)
+                if (index !== -1) { state.partners[index] = action.payload }
+            })
+            .addMatcher(partnersApi.endpoints.deletePartner.matchFulfilled, (state, action) => {
+                state.partners = state.partners.filter(el => el.id !== action.payload)
             })
     }
 })

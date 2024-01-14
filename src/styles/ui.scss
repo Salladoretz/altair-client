@@ -1,4 +1,5 @@
-input {
+input
+{
     background: white;
     width: 100px;
     height: 24px;
@@ -8,7 +9,8 @@ input {
     font-size: 12px;
 }
 
-textarea {
+textarea
+{
     background: white;
     width: 100px;
     box-shadow: $input-box-shadow;
@@ -17,26 +19,54 @@ textarea {
     padding: 4px;
 }
 
-textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar
+{
     width: 0px;
     height: 0px;
 }
 
-.customButton {
-@include button();
+select
+{
+    background: white;
+    width: 160px;
+    box-shadow: $input-box-shadow;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 2px;
+    text-align: center;
+}
+
+option
+{
+    border-radius: 6px;
+}
+
+.checkbox
+{
+    width: 14px;
+    height: 14px;
+    box-shadow: none;
+}
+
+.customButton
+{
+    @include button();
     padding: 0.5rem;
     font-size: 0.8rem;
 }
 
-.customButton:hover {
+.customButton:hover
+{
     background: #f2f2f2;
 }
 
-.customButton:active {
+.customButton:active
+{
     box-shadow: $button-box-shadow_active;
 }
 
-.custom-close-button {
+.custom-close-button
+{
     position: absolute;
     top: 0px;
     right: 4px;

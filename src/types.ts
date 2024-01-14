@@ -34,3 +34,9 @@ export type TPartner = {
 }
 
 export type TResponseAddPartner = TPartner & { token: string }
+
+export type TBaseInfo = {
+    contractTypes: [],
+    otherDocTypes: [],
+    constractionPlace: []
+}

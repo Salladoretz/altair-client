@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import auth from '../features/login/loginSlice'
+import baseInfo from '../features/baseInfo/baseInfoSlice'
 import partners from '../features/partners/partnersSlice'
 import infoCards from '../components/info-cards/infoCardSlice'
 import { api } from './services/api'
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     auth,
+    baseInfo,
     partners,
     infoCards
   },

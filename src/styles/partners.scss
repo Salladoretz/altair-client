@@ -1,239 +1,357 @@
-.partners{
+.partners
+{
     min-height: 100%;
     max-width: 1200px;
     width: 100%;
     padding: 8px;
 
-    &--title {
+    .partners--title
+    {
         @include flex();
         padding: 8px;
     }
 
-    &--head {
+    .partners--head
+    {
         display: flex;
         padding: 8px;
         justify-content: space-around;
 
-        input{
+        input
+        {
             width: 200px;
         }
     }
 
-    &--list {
+    .partners--list
+    {
+
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
 
-        .partners-row{
-            
+        .partners-row
+        {
+            position: relative;
             width: 320px;
 
-            &--card{
+            .partners-row--card
+            {
                 @include component();
                 display: flex;
                 font-size: 10px;
                 justify-content: space-between;
                 min-height: 70px;
                 margin-bottom: 4px;
-            }
-            &--title {
-                padding: 8px;
-                width: 240px;
-                user-select: none;
-                h3{
-                    font-size: 14px;
+
+                .partners-row--title
+                {
+                    padding: 8px;
+                    width: 240px;
+                    user-select: none;
+
+                    h3
+                    {
+                        font-size: 14px;
+                    }
                 }
-            }
 
-            &--info {
-                display: flex;
-                flex-direction: column;
-                padding-top: 10px;
-                
-
-                .partners-row--infoBtn{
+                .partners-row--info
+                {
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding-top: 4px;
-                    height: 100%;
+                    flex-direction: column;
+                    padding-top: 10px;
+                    width: 150px;
 
-                        button {
+
+                    .partners-row--infoBtn
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        padding-top: 4px;
+                        height: 100%;
+
+                        button
+                        {
                             width: 40px;
                             font-size: 12px;
                             border-radius: 3px;
-                            box-shadow:  2px 2px 2px #b3b3b3, -2px -2px 2px #ffffff;
+                            box-shadow: 2px 2px 2px #b3b3b3, -2px -2px 2px #ffffff;
                         }
+                    }
                 }
             }
 
-            &--numbers {
+            .partners-row--numbers
+            {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                padding-top: 10px;        
+                padding-top: 10px;
                 width: 30px;
             }
-        }        
 
-        .contract-row{
-                @include component();
-                font-size: 10px;
-                margin-bottom: 8px;
-                padding: 8px;
-                background: $bg-contract;
-
-            &--card {
-                display: flex;
-                justify-content: space-between;
-            }
-         &--title {
-                h4 {
-                    font-size: 12px;
-                    font-weight: 600;
-                }
-                h3{
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: $color-place
-                }
-
-            }
-            &--info {
-                display: flex;
-                padding-top: 4px;
-                gap: 4px;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            &--infoBtn{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-
-                    button {
-                        width: 40px;
-                        font-size: 12px;
-                        border-radius: 3px;
-                        box-shadow:  2px 2px 2px #b3b3b3, -2px -2px 2px #ffffff;
-                    }
-            }
-&--numbers {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 10px;        
-    width: 30px;
-    margin-bottom: 16px;
-}
-   
-        }
-        .addendum-row{
-            @include component();
-            font-size: 10px;
-            margin-bottom: 4px;
-            padding: 8px;
-            background: $bg-addendum;
-
-            &--card {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 8px;
-            }
-            
-            &--title {
-                h4 {
-                    font-size: 12px;
-                    font-weight: 600;
-                }
-                h3 {
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: $color-place;
-                }
-            }
-
-            &--info {
-                display: flex;
-                padding-top: 4px;
-                gap: 4px;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            &--infoBtn{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                padding-bottom: 4px;
-
-                    button {
-                        width: 40px;
-                        font-size: 12px;
-                        border-radius: 3px;
-                        box-shadow:  2px 2px 2px #b3b3b3, -2px -2px 2px #ffffff;
-                    }
-            }
-
-            &--numbers {
+            .partners-row--contracts
+            {
+                position: absolute;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                padding: 10px 8px 0px 8px;        
-                width: 30px;
-            }
-        }
+                gap: 4px;
+                z-index: 1;
+                width: 100%;
 
-        .other-docs-row{
-            background: $bg-other-doc;
-            display: flex;
-            justify-content: space-between;
+                button
+                {
+                    padding: 1px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    border-radius: 3px;
+                }
+            }
         }
     }
+}
 
-    .partner-form {
-        @include component();
-        position: absolute;
-        top: 10%;
-        right: 35%;
-        background: #E9EDF0;
+.contract-row
+{
+    @include component();
+    font-size: 10px;
+    margin-bottom: 8px;
+    padding: 8px;
+    background: $bg-contract;
 
-        &--container {
-            width: 340px;
-            padding: 8px;
-            margin-top: 20px;
-        }
+    .contract-row--card
+    {
+        display: flex;
+        justify-content: space-between;
 
-        &--input{
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
 
-            &-name {
-                text-align: center;
+        .contract-row--title
+        {
+            h4
+            {
+                font-size: 12px;
+                font-weight: 600;
             }
 
-            label {
+            h3
+            {
+                font-size: 14px;
+                font-weight: 600;
+                color: $color-place
+            }
+
+            p
+            {
                 font-size: 12px;
             }
 
-            input {
-                width: 180px;
+            &>div
+            {
+                display: flex;
+                gap: 8px;
             }
+        }
+    }
 
-            textarea {
-                width: 180px;
-            }
-            
+
+    &--info
+    {
+        display: flex;
+        padding-top: 4px;
+        gap: 4px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &--infoBtn
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        button
+        {
+            width: 40px;
+            font-size: 12px;
+            border-radius: 3px;
+            box-shadow: 2px 2px 2px #b3b3b3, -2px -2px 2px #ffffff;
+        }
+    }
+
+    &--numbers
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        width: 30px;
+        margin-bottom: 16px;
+    }
+
+}
+
+.addendum-row
+{
+    @include component();
+    font-size: 10px;
+    margin-bottom: 4px;
+    padding: 8px;
+    background: $bg-addendum;
+
+    &--card
+    {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    &--title
+    {
+        h4
+        {
+            font-size: 12px;
+            font-weight: 600;
         }
 
-        &--error {
-            color: $color-error;
-            height: 20px;
-            width: 100%;
+        h3
+        {
+            font-size: 14px;
+            font-weight: 600;
+            color: $color-place;
         }
+    }
+
+    &--info
+    {
+        display: flex;
+        padding-top: 4px;
+        gap: 4px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &--infoBtn
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding-bottom: 4px;
+
+        button
+        {
+            width: 40px;
+            font-size: 12px;
+            border-radius: 3px;
+            box-shadow: 2px 2px 2px #b3b3b3, -2px -2px 2px #ffffff;
+        }
+    }
+
+    &--numbers
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 8px 0px 8px;
+        width: 30px;
+    }
+}
+
+.other-docs-row
+{
+    background: $bg-other-doc;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+
+
+.partner-form
+{
+    @include component();
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #E9EDF0;
+    width: max-content;
+    z-index: 10;
+
+
+    .partner-form--container
+    {
+        padding: 8px;
+
+        h1
+        {
+            text-align: center;
+        }
+
+        .partner-form--form
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .partner-form--inputs
+            {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                max-height: 360px;
+                gap: 4px;
+
+                .partner-form--input
+                {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 2px 4px;
+
+                    .partner-form--input-name
+                    {
+                        text-align: center;
+                    }
+
+                    label
+                    {
+                        font-size: 12px;
+                        margin-right: 4px;
+                    }
+
+                    input,
+                    textarea,
+                    select
+                    {
+                        width: 180px;
+                    }
+
+                }
+
+                .partner-form--input-checkbox
+                {
+                    display: flex;
+                    margin: 2px 4px;
+                    justify-content: space-between;
+
+                    label
+                    {
+                        font-size: 12px;
+                        margin-right: 4px;
+                    }
+                }
+            }
+        }
+    }
+
+    .partner-form--error
+    {
+        color: $color-error;
+        height: 20px;
+        width: 100%;
     }
 }

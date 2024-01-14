@@ -1,4 +1,5 @@
-.app {
+.app
+{
     background: $bg;
     padding: 8px;
     min-height: 100vh;
@@ -7,47 +8,54 @@
     align-items: center;
     gap: 1rem;
 
-    .header {
+    .header
+    {
         @include flex();
         @include component();
         width: 100%;
         font-size: 24px;
         padding: 16px;
 
-        h1 {
+        h1
+        {
             font-size: 36px;
             color: green;
             font-family: Caveat;
         }
 
-        &__logstatus {
+        .header--logstatus
+        {
             display: flex;
             position: absolute;
             right: 0;
             margin-right: 3rem;
+
+            p
+            {
+                font-size: 12px;
+            }
+
         }
     }
 
-    .main {
+    .main
+    {
         display: flex;
         width: 100%;
         gap: 8px;
-        
-        .menu {
+
+        .menu
+        {
             @include component();
             width: 5vw;
             min-height: 80vh;
         }
 
-        .content {
+        .content
+        {
             @include component();
             @include flex();
             width: 100%;
         }
     }
 }
-
-
-
-
-

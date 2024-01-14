@@ -1,7 +1,7 @@
 import { useState } from "react"
 import OtherDocsRow from "./otherDocsRow"
 import { PlusCircleTwoTone, MinusCircleTwoTone } from "@ant-design/icons"
-import { toLocalDate } from "../../app/utils/date-formatter"
+import { toRuDate } from "../../app/utils/date-formatter"
 import AddendumRow from "./addendumRow"
 import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
@@ -17,12 +17,17 @@ const ContractRow = (props) => {
 
     const dispatch = useAppDispatch()
 
+
     return (
         <div className='contract-row'>
             <div className='contract-row--card'>
                 <div className='contract-row--title'>
-                    <h4>Договор № {contract.contractNumber} от {toLocalDate(contract.contractDate)}</h4>
-                    <h3>{contract.place.name}</h3>
+                    <h4>Договор № {contract.contractNumber} от {toRuDate(contract.contractDate)}</h4>
+                    <p>{contract.partner.shortName}</p>
+                    <div>
+                        <h3>{contract.place.name}</h3>
+                        <p>Тип: {contract.contractType.title}</p>
+                    </div>
                 </div>
                 <div>
                     <div className='contract-row--info'>
