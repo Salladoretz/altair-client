@@ -1,22 +1,45 @@
 import { useState } from "react"
 import OtherDocsRow from "./otherDocsRow"
-import { PlusCircleTwoTone, MinusCircleTwoTone } from "@ant-design/icons"
+import { PlusCircleTwoTone, MinusCircleTwoTone, DeleteOutlined } from "@ant-design/icons"
 import { toRuDate } from "../../app/utils/date-formatter"
 import AddendumRow from "./addendumRow"
 import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
 import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
+import { useDeleteContractMutation } from "../../app/services/partners"
+import { isErrorWithMessage } from "../../app/utils/error-checker"
+
 
 const ContractRow = (props) => {
 
     const [openDocs, setOpenDocs] = useState(false)
+    const [errorContract, setErrorContract] = useState(false)
     const contract = props.contracts
     const addendums = contract.createdAddendum
     const otherDocs = contract.createdOtherContractDocs
 
     const dispatch = useAppDispatch()
 
+
+    //Удаление договора
+    const [deleteContract] = useDeleteContractMutation()
+
+    const deleteContractHandler = async (id, partnerId) => {
+        try {
+            let contractForDelete = {}
+            contractForDelete.id = id
+            contractForDelete.partnerId = partnerId
+            await deleteContract(contractForDelete).unwrap()
+        } catch (err) {
+            const mayBeError = isErrorWithMessage(err)
+            if (mayBeError) {
+                setErrorContract(err.data.message)
+            } else {
+                setErrorContract('Что-то случилось при обращении к серверу!')
+            }
+        }
+    }
 
     return (
         <div className='contract-row'>
@@ -35,10 +58,14 @@ const ContractRow = (props) => {
                         <CloudCopyLink link={contract.cloudCopy} />
                     </div>
                     <div className='contract-row--infoBtn'>
-                        <button onClick={() => dispatch(toggleCard(contract))}>Info</button>
+                        <button
+                            onClick={() => deleteContractHandler(contract.id, contract.partnerId)}
+                        ><DeleteOutlined style={{ 'color': 'red' }} /></button>
+                        <button
+                            onClick={() => dispatch(toggleCard(contract))}
+                        >Info</button>
                     </div>
                 </div>
-
                 <div className='contract-row--numbers'>
                     <h3>{addendums.length}</h3>
                     <button onClick={() => setOpenDocs(!openDocs)}>
@@ -46,6 +73,7 @@ const ContractRow = (props) => {
                     </button>
                 </div>
             </div>
+            {errorContract}
             {
                 openDocs ?
                     addendums.map(item =>
@@ -54,7 +82,7 @@ const ContractRow = (props) => {
                     : ''
             }
             {
-                otherDocs?.map(item =>
+                otherDocs.map(item =>
                     <OtherDocsRow key={item.id} otherDoc={item} />
                 )
             }

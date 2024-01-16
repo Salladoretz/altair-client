@@ -112,7 +112,7 @@ const PartnerRow = ({ partner }) => {
             {openContracts
                 ? <div className='partners-row--contracts' >
                     <CustomButton onClick={() => setOpenContractForm(!openContractForm)}>+ Добавить контракт</CustomButton>
-                    {contracts?.map(item =>
+                    {contracts.map(item =>
                         <ContractRow key={item.id} contracts={item} />
                     )}
                 </div>

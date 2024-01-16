@@ -30,10 +30,29 @@ export type TPartner = {
     comments: string,
     status: boolean,
     onDelete: boolean
-    createdContract: [{}]
+    createdContract: TContract[]
 }
 
-export type TResponseAddPartner = TPartner & { token: string }
+
+export type TContract = {
+    id: string,
+    contractNumber: string,
+    contractDate: string,
+    contractTypeId: number,
+    contractSubject: string,
+    contractAmount: number,
+    contractPeriod: string,
+    contractMaterials: boolean,
+    placeId: number,
+    original: boolean,
+    cloudCopy: string,
+    partnerId: string,
+    comments: string,
+    status: boolean,
+    createdAddendum: [{}],
+    createdOtherContractDocs: [{}]
+}
+
 
 export type TBaseInfo = {
     contractTypes: [],

@@ -33,6 +33,19 @@ const slice = createSlice({
             .addMatcher(partnersApi.endpoints.deletePartner.matchFulfilled, (state, action) => {
                 state.partners = state.partners.filter(el => el.id !== action.payload)
             })
+            .addMatcher(partnersApi.endpoints.addContract.matchFulfilled, (state, action) => {
+                let index = state.partners.findIndex(el => el.id === action.payload.partnerId)
+                if (index !== -1) { state.partners[index].createdContract.push(action.payload) }
+            })
+            .addMatcher(partnersApi.endpoints.editContract.matchFulfilled, (state, action) => {
+                let indexPartner = state.partners.findIndex(el => el.id === action.payload.partnerId)
+                let indexContract = state.partners[indexPartner].createdContract.findIndex(el => el.id === action.payload.id)
+                if (indexContract !== -1) { state.partners[indexPartner].createdContract[indexContract] = action.payload }
+            })
+            .addMatcher(partnersApi.endpoints.deleteContract.matchFulfilled, (state, action) => {
+                let indexPartner = state.partners.findIndex(el => el.id === action.payload.partnerId)
+                state.partners[indexPartner].createdContract = state.partners[indexPartner].createdContract.filter(el => el.id !== action.payload.id)
+            })
     }
 })
 
