@@ -9,8 +9,6 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
 
     const { contractTypes, constractionPlace } = useAppSelector(state => state.baseInfo.baseInfo)
 
-    console.log(contractTypes)
-
     const [form, setForm] = useState({
         id: contract?.id,
         contractNumber: contract?.contractNumber,
@@ -31,6 +29,8 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
     const changeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
     }
+
+    console.log(form.contractDate)
 
     return (
         <div className='partner-form'>
@@ -58,7 +58,7 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
                                 type="date"
                                 name='contractDate'
                                 onChange={changeHandler}
-                                value={toLocalDate(form.contractDate)}
+                                value={toLocalDate(form.contractDate) || ''}
                             />
                         </div>
                         <div className='partner-form--input'>
@@ -87,7 +87,7 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
                                 type="number"
                                 name='contractAmount'
                                 onChange={changeHandler}
-                                value={toLocalDate(form.contractAmount) || ''}
+                                value={form.contractAmount || ''}
                             />
                         </div>
                         <div className='partner-form--input'>

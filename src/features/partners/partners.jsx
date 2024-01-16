@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useGetAllPartnersQuery, useAddPartnerMutation } from '../../app/services/partners'
 import InfoCards from '../../components/info-cards'
-import { mockData } from '../../mockData'
 import PartnerRow from './partnerRow'
 import { useAppSelector } from '../../app/hooks'
 import CustomButton from '../../components/UI/custom-button'
@@ -27,7 +26,6 @@ const Partners = () => {
     const [error, setError] = useState('')
     const add = async (form) => {
         try {
-
             await addPartner(form).unwrap()
             setActiveAddForm(false)
 

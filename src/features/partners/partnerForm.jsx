@@ -31,7 +31,7 @@ const PartnerForm = ({ partner, submit, error, setError, buttonName, closeForm }
 
     const validation = (form) => {
         setError('')
-        !form.shortName ? setError('Короткое наименование контрагента не указано!')
+        !form.name ? setError('Наименование контрагента не указано!')
             : !form.inn ? setError('ИНН не введен!')
                 : submit(form)
     }
@@ -47,7 +47,7 @@ const PartnerForm = ({ partner, submit, error, setError, buttonName, closeForm }
                 >
                     <div className='partner-form--inputs'>
                         <div className='partner-form--input'>
-                            <label htmlFor="">Название</label>
+                            <label htmlFor="">Название *</label>
                             <textarea
                                 type="text"
                                 name='name'
@@ -85,7 +85,7 @@ const PartnerForm = ({ partner, submit, error, setError, buttonName, closeForm }
                             />
                         </div>
                         <div className='partner-form--input'>
-                            <label htmlFor="">ИНН</label>
+                            <label htmlFor="">ИНН *</label>
                             <input
                                 type="text"
                                 name='inn'

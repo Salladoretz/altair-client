@@ -1,5 +1,12 @@
 export const toLocalDate = date => {
-    return date?.split('T', 1).toString()
+    let result = ''
+
+    if (date) {
+
+        result = date.split('T', 1).toString()
+
+        return result
+    }
 }
 
 export const toRuDate = date => {

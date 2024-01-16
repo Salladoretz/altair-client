@@ -7,8 +7,9 @@ import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
 import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
-import { useDeleteContractMutation } from "../../app/services/partners"
+import { useDeleteContractMutation, useEditContractMutation } from "../../app/services/partners"
 import { isErrorWithMessage } from "../../app/utils/error-checker"
+import ContractForm from "./contractForm"
 
 
 const ContractRow = (props) => {
@@ -16,11 +17,30 @@ const ContractRow = (props) => {
     const [openDocs, setOpenDocs] = useState(false)
     const [errorContract, setErrorContract] = useState(false)
     const contract = props.contracts
+    const [openContractForm, setOpenContractForm] = useState(false)
     const addendums = contract.createdAddendum
     const otherDocs = contract.createdOtherContractDocs
 
     const dispatch = useAppDispatch()
 
+
+    //Редактироване договора
+    const [editContract] = useEditContractMutation()
+
+    const editContractHandler = async (form) => {
+        try {
+            await editContract(form).unwrap()
+            setOpenContractForm(false)
+
+        } catch (err) {
+            const mayBeError = isErrorWithMessage(err)
+            if (mayBeError) {
+                setErrorContract(err.data.message)
+            } else {
+                setErrorContract('Что-то случилось при обращении к серверу!')
+            }
+        }
+    }
 
     //Удаление договора
     const [deleteContract] = useDeleteContractMutation()
@@ -45,7 +65,7 @@ const ContractRow = (props) => {
         <div className='contract-row'>
             <div className='contract-row--card'>
                 <div className='contract-row--title'>
-                    <h4>Договор № {contract.contractNumber} от {toRuDate(contract.contractDate)}</h4>
+                    <h4 onDoubleClick={() => setOpenContractForm(!openContractForm)}>Договор № {contract.contractNumber} от {toRuDate(contract.contractDate)}</h4>
                     <p>{contract.partner.shortName}</p>
                     <div>
                         <h3>{contract.place.name}</h3>
@@ -86,6 +106,14 @@ const ContractRow = (props) => {
                     <OtherDocsRow key={item.id} otherDoc={item} />
                 )
             }
+
+            {openContractForm ? <ContractForm
+                contract={contract}
+                partnerId={contract.partnerId}
+                error={errorContract}
+                buttonName={'Изменить'}
+                submit={editContractHandler}
+                closeForm={setOpenContractForm} /> : ''}
         </div>
     )
 }
