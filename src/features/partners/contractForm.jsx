@@ -30,7 +30,6 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
-    console.log(form.contractDate)
 
     return (
         <div className='partner-form'>

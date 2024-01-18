@@ -29,6 +29,7 @@ const ContractRow = (props) => {
 
     const editContractHandler = async (form) => {
         try {
+
             await editContract(form).unwrap()
             setOpenContractForm(false)
 
@@ -66,10 +67,10 @@ const ContractRow = (props) => {
             <div className='contract-row--card'>
                 <div className='contract-row--title'>
                     <h4 onDoubleClick={() => setOpenContractForm(!openContractForm)}>Договор № {contract.contractNumber} от {toRuDate(contract.contractDate)}</h4>
-                    <p>{contract.partner.shortName}</p>
+                    <p>{contract.partner?.shortName}</p>
                     <div>
-                        <h3>{contract.place.name}</h3>
-                        <p>Тип: {contract.contractType.title}</p>
+                        <h3>{contract.place?.name}</h3>
+                        <p>Тип: {contract.contractType?.title}</p>
                     </div>
                 </div>
                 <div>
@@ -87,22 +88,22 @@ const ContractRow = (props) => {
                     </div>
                 </div>
                 <div className='contract-row--numbers'>
-                    <h3>{addendums.length}</h3>
+                    <h3>{addendums ? addendums.length : 0}</h3>
                     <button onClick={() => setOpenDocs(!openDocs)}>
-                        {openDocs || addendums.length < 1 ? <MinusCircleTwoTone /> : <PlusCircleTwoTone />}
+                        {openDocs || addendums?.length < 1 ? <MinusCircleTwoTone /> : <PlusCircleTwoTone />}
                     </button>
                 </div>
             </div>
             {errorContract}
             {
                 openDocs ?
-                    addendums.map(item =>
+                    addendums?.map(item =>
                         <AddendumRow key={item.id} addendums={item} />
                     )
                     : ''
             }
             {
-                otherDocs.map(item =>
+                otherDocs?.map(item =>
                     <OtherDocsRow key={item.id} otherDoc={item} />
                 )
             }
