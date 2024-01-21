@@ -6,13 +6,16 @@ import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
 import { useDeleteAddendumMutation, useEditAddendumMutation } from "../../app/services/partners"
 import AddendumForm from "./addendumForm"
+import { useState } from "react"
+import { isErrorWithMessage } from "../../app/utils/error-checker"
+import { DeleteOutlined } from "@ant-design/icons"
 
 
 const AddendumRow = (props) => {
 
     const { addendum, partnerId, contractId } = props.addendum
 
-    const otherDocs = addendum.createdOtherAddendumDocs
+    const otherAddendumDocs = addendum?.createdOtherAddendumDocs || []
 
     const dispatch = useAppDispatch()
 
@@ -59,18 +62,19 @@ const AddendumRow = (props) => {
         }
     }
 
+    console.log(addendum)
 
     return (
         <div className='addendum-row'>
             <div className='addendum-row--card'>
                 <div className='addendum-row--title'>
-                    <h4 onDoubleClick={() => setOpenAddendumForm(!openAddendumForm)} >ДС № {addendum.addendumNumber} от {toLocalDate(addendum.addendumDate)}</h4>
-                    <h3>{addendum.place.name}</h3>
+                    <h4 onDoubleClick={() => setOpenAddendumForm(!openAddendumForm)} >ДС № {addendum?.addendumNumber} от {toLocalDate(addendum?.addendumDate)}</h4>
+                    <h3>{addendum?.place?.name}</h3>
                 </div>
                 <div>
                     <div className='addendum-row--info'>
-                        <HaveOriginal original={addendum.original} />
-                        <CloudCopyLink link={addendum.cloudCopy} />
+                        <HaveOriginal original={addendum?.original} />
+                        <CloudCopyLink link={addendum?.cloudCopy} />
                     </div>
                     <div className='addendum-row--infoBtn'>
                         <button
@@ -82,16 +86,17 @@ const AddendumRow = (props) => {
                 <div className='addendum-row--numbers'></div>
             </div>
             {errorAddendum}
-            {
-                otherDocs?.map(i =>
-                    <OtherDocsRow key={i.id} otherDoc={i} />
+            {otherAddendumDocs
+                ? otherAddendumDocs?.map(i =>
+                    <OtherDocsRow key={i.id} otherAddendumDocs={i} />
                 )
+                : ''
             }
             {
                 openAddendumForm
                     ? <AddendumForm
-                        partnerId={contract.partnerId}
-                        contractId={contract.id}
+                        partnerId={partnerId}
+                        contractId={contractId}
                         addendum={addendum}
                         error={errorAddendum}
                         buttonName={'Изменить'}

@@ -29,7 +29,6 @@ const ContractRow = (props) => {
 
     const dispatch = useAppDispatch()
 
-
     //Редактироване договора
     const [editContract] = useEditContractMutation()
 

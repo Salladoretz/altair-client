@@ -46,7 +46,7 @@ const AddendumForm = ({ addendum, contractId, partnerId, submit, error, setError
                                 name='addendumNumber'
                                 className='partner-form--input-name'
                                 onChange={changeHandler}
-                                value={form.addendumNumber}
+                                value={form.addendumNumber || ''}
                             />
                         </div>
                         <div className='partner-form--input'>
