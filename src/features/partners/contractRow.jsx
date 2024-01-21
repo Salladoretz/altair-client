@@ -7,17 +7,23 @@ import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
 import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
-import { useDeleteContractMutation, useEditContractMutation } from "../../app/services/partners"
+import { useDeleteContractMutation, useEditContractMutation, useAddAddendumMutation } from "../../app/services/partners"
 import { isErrorWithMessage } from "../../app/utils/error-checker"
 import ContractForm from "./contractForm"
+import CustomButton from "../../components/UI/custom-button"
+import AddendumForm from "./addendumForm"
 
 
 const ContractRow = (props) => {
 
-    const [openDocs, setOpenDocs] = useState(false)
-    const [errorContract, setErrorContract] = useState(false)
-    const contract = props.contracts
     const [openContractForm, setOpenContractForm] = useState(false)
+
+    const [openAddendums, setOpenAddendums] = useState(false)
+    const [openAddendumForm, setOpenAddendumForm] = useState(false)
+
+    const [errorContract, setErrorContract] = useState(false)
+
+    const contract = props.contracts
     const addendums = contract.createdAddendum
     const otherDocs = contract.createdOtherContractDocs
 
@@ -62,8 +68,28 @@ const ContractRow = (props) => {
         }
     }
 
+    //Добавление ДС
+    const [addAddendum] = useAddAddendumMutation()
+    const [errorAddendum, setErrorAddendum] = useState('')
+
+    const addAddendumHandler = async (form) => {
+        try {
+            await addAddendum(form).unwrap()
+            setOpenAddendumForm(false)
+        }
+        catch (err) {
+            const mayBeError = isErrorWithMessage(err)
+            if (mayBeError) {
+                setErrorContract(err.data.message)
+            } else {
+                setErrorContract('Что-то случилось при обращении к серверу!')
+            }
+        }
+    }
+
     return (
         <div className='contract-row'>
+
             <div className='contract-row--card'>
                 <div className='contract-row--title'>
                     <h4 onDoubleClick={() => setOpenContractForm(!openContractForm)}>Договор № {contract.contractNumber} от {toRuDate(contract.contractDate)}</h4>
@@ -88,34 +114,63 @@ const ContractRow = (props) => {
                     </div>
                 </div>
                 <div className='contract-row--numbers'>
-                    <h3>{addendums ? addendums.length : 0}</h3>
-                    <button onClick={() => setOpenDocs(!openDocs)}>
-                        {openDocs || addendums?.length < 1 ? <MinusCircleTwoTone /> : <PlusCircleTwoTone />}
+                    <h3>{addendums?.length || 0}</h3>
+                    <button onClick={() => setOpenAddendums(!openAddendums)}>
+                        {openAddendums
+                            ? <MinusCircleTwoTone style={{ 'color': 'blue', 'fontSize': '13px' }} />
+                            : <PlusCircleTwoTone style={{ 'color': 'blue', 'fontSize': '13px' }} />}
                     </button>
                 </div>
             </div>
             {errorContract}
             {
-                openDocs ?
-                    addendums?.map(item =>
-                        <AddendumRow key={item.id} addendums={item} />
-                    )
+                openAddendums
+                    ? <div className='partners-row--contracts' >
+                        <div className='partners-row--contractsBtn'>
+                            <CustomButton
+                                children={'+ Добавить ДС'}
+                                onClick={() => setOpenAddendumForm(!openAddendumForm)}></CustomButton>
+                        </div>
+                        {addendums.map(item =>
+                            <AddendumRow
+                                key={item.id}
+                                addendum={item}
+                                partnerId={contract.partnerId}
+                                contractId={contract.id}
+                            />
+                        )}
+                        <div>
+                            {otherDocs?.map(item =>
+                                <OtherDocsRow key={item.id} otherDoc={item} />
+                            )}
+                        </div>
+                    </div>
                     : ''
             }
             {
-                otherDocs?.map(item =>
-                    <OtherDocsRow key={item.id} otherDoc={item} />
-                )
+                openContractForm
+                    ? <ContractForm
+                        contract={contract}
+                        partnerId={contract.partnerId}
+                        error={errorContract}
+                        buttonName={'Изменить'}
+                        submit={editContractHandler}
+                        closeForm={setOpenContractForm} />
+                    : ''
+            }
+            {
+                openAddendumForm
+                    ? <AddendumForm
+                        partnerId={contract.partnerId}
+                        contractId={contract.id}
+                        error={errorAddendum}
+                        buttonName={'Добавить'}
+                        submit={addAddendumHandler}
+                        closeForm={setOpenAddendumForm} />
+                    : ''
             }
 
-            {openContractForm ? <ContractForm
-                contract={contract}
-                partnerId={contract.partnerId}
-                error={errorContract}
-                buttonName={'Изменить'}
-                submit={editContractHandler}
-                closeForm={setOpenContractForm} /> : ''}
-        </div>
+        </div >
     )
 }
 

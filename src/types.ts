@@ -49,8 +49,24 @@ export type TContract = {
     partnerId: string,
     comments: string,
     status: boolean,
-    createdAddendum: [{}],
+    createdAddendum: TAddendum[],
     createdOtherContractDocs: [{}]
+}
+
+export type TAddendum = {
+    id: string,
+    addendumNumber: string,
+    addendumDate: string,
+    addendumSubject: string,
+    addendumAmount: number,
+    increaseTotalAmmount: boolean,
+    placeId: number,
+    original: boolean,
+    cloudCopy: string,
+    contractId: string,
+    partnerId: string,
+    comments: string,
+    createdOtherAddendumDocs: [{}]
 }
 
 

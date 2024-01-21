@@ -1,5 +1,5 @@
 import { api } from './api'
-import { TPartner, TContract } from '../../types'
+import { TPartner, TContract, TAddendum } from '../../types'
 
 
 type TPartnerForAdd = Omit<TPartner, 'id' | 'createdContract'>
@@ -10,6 +10,14 @@ type TContractForEdit = Omit<TContract, 'createdAddendum' | 'createdOtherContrac
 type TContractForDelete = {
     id: string,
     partnerId: string
+}
+
+type TAddendumForAdd = Omit<TAddendum, 'id' | 'createdOtherAddendumDocs'>
+type TAddendumForEdit = Omit<TAddendum, 'createdOtherAddendumDocs'>
+type TAddendumForDelete = {
+    id: string,
+    partnerId: string,
+    contractId: string
 }
 
 export const partnersApi = api.injectEndpoints({
@@ -62,6 +70,27 @@ export const partnersApi = api.injectEndpoints({
                 method: 'DELETE',
                 body: contractForDelete
             })
+        }),
+        addAddendum: builder.mutation<TAddendum, TAddendumForAdd>({
+            query: (addendumForAdd) => ({
+                url: '/addendum/add',
+                method: 'POST',
+                body: addendumForAdd
+            })
+        }),
+        editAddendum: builder.mutation<TAddendum, TAddendumForEdit>({
+            query: (addendumForEdit) => ({
+                url: '/addendum/edit',
+                method: 'PUT',
+                body: addendumForEdit
+            })
+        }),
+        deleteAddendum: builder.mutation<TAddendumForDelete, string>({
+            query: (addendumForDelete) => ({
+                url: '/addendum/delete',
+                method: 'DELETE',
+                body: addendumForDelete
+            })
         })
     })
 })
@@ -74,7 +103,10 @@ export const {
     useDeletePartnerMutation,
     useAddContractMutation,
     useEditContractMutation,
-    useDeleteContractMutation
+    useDeleteContractMutation,
+    useAddAddendumMutation,
+    useEditAddendumMutation,
+    useDeleteAddendumMutation
 } = partnersApi
 
 export const { endpoints: {
@@ -84,5 +116,8 @@ export const { endpoints: {
     deletePartner,
     addContract,
     editContract,
-    deleteContract
+    deleteContract,
+    addAddendum,
+    editAddendum,
+    deleteAddendum
 } } = partnersApi

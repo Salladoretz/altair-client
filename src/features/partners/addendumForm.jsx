@@ -5,25 +5,23 @@ import { toLocalDate } from '../../app/utils/date-formatter'
 import { useAppSelector } from '../../app/hooks'
 
 
-const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName, closeForm }) => {
+const AddendumForm = ({ addendum, contractId, partnerId, submit, error, setError, buttonName, closeForm }) => {
 
-    const { contractTypes, constractionPlace } = useAppSelector(state => state.baseInfo.baseInfo)
+    const { constractionPlace } = useAppSelector(state => state.baseInfo.baseInfo)
 
     const [form, setForm] = useState({
-        id: contract?.id,
-        contractNumber: contract?.contractNumber,
-        contractDate: contract?.contractDate,
-        contractTypeId: contract?.contractTypeId,
-        contractSubject: contract?.contractSubject,
-        contractAmount: contract?.contractAmount,
-        contractPeriod: contract?.contractPeriod,
-        contractMaterials: contract?.contractMaterials,
-        placeId: contract?.placeId,
-        original: contract?.original,
-        cloudCopy: contract?.cloudCopy,
-        partnerId: contract?.partnerId || partnerId,
-        comments: contract?.comments,
-        status: contract?.status
+        id: addendum?.id,
+        contractId: contractId,
+        partnerId: partnerId,
+        addendumNumber: addendum?.addendumNumber,
+        addendumDate: addendum?.addendumDate,
+        addendumSubject: addendum?.addendumSubject,
+        addendumAmount: addendum?.addendumAmount,
+        increaseTotalAmmount: addendum?.increaseTotalAmmount,
+        placeId: addendum?.placeId,
+        original: addendum?.original,
+        cloudCopy: addendum?.cloudCopy,
+        comments: addendum?.comments
     })
 
     const changeHandler = event => {
@@ -35,77 +33,58 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
         <div className='partner-form'>
             <CustomCloseButton onClick={() => closeForm(false)} />
             <div className='partner-form--container'>
-                <h1>Договор</h1>
+                <h1>Дополнительное соглашение</h1>
                 <form
                     className='partner-form--form'
                     onSubmit={event => event.preventDefault()}
                 >
                     <div className='partner-form--inputs'>
                         <div className='partner-form--input'>
-                            <label htmlFor="">Номер договора</label>
+                            <label htmlFor="">Номер ДС</label>
                             <input
                                 type="text"
-                                name='contractNumber'
+                                name='addendumNumber'
                                 className='partner-form--input-name'
                                 onChange={changeHandler}
-                                value={form.contractNumber}
+                                value={form.addendumNumber}
                             />
                         </div>
                         <div className='partner-form--input'>
                             <label htmlFor="">Дата заключения</label>
                             <input
                                 type="date"
-                                name='contractDate'
+                                name='addendumDate'
                                 onChange={changeHandler}
-                                value={toLocalDate(form.contractDate) || ''}
+                                value={toLocalDate(form.addendumDate) || ''}
                             />
                         </div>
                         <div className='partner-form--input'>
-                            <label htmlFor="">Тип договора</label>
-                            <select
-                                name='contractTypeId'
-                                onChange={changeHandler}>
-                                {contractTypes?.map(i =>
-                                    <option key={i.id} value={i.id}>{i.title || i.name || ''}</option>
-                                )}
-                            </select>
-                        </div>
-                        <div className='partner-form--input'>
-                            <label htmlFor="">Предмет договора</label>
+                            <label htmlFor="">Предмет соглашения</label>
                             <textarea
                                 type="text"
-                                name='contractSubject'
+                                name='addendumSubject'
                                 rows={4}
                                 onChange={changeHandler}
-                                value={form.contractSubject || ''}
+                                value={form.addendumSubject || ''}
                             />
                         </div>
                         <div className='partner-form--input'>
-                            <label htmlFor="">Сумма договора</label>
+                            <label htmlFor="">Сумма соглашения</label>
                             <input
                                 type="number"
-                                name='contractAmount'
+                                name='addendumAmount'
                                 onChange={changeHandler}
-                                value={form.contractAmount || ''}
-                            />
-                        </div>
-                        <div className='partner-form--input'>
-                            <label htmlFor="">Заключен до</label>
-                            <input
-                                type="date"
-                                name='contractPeriod'
-                                onChange={changeHandler}
-                                value={form.contractPeriod || ''}
+                                value={form.addendumAmount || 0}
                             />
                         </div>
                         <div className='partner-form--input-checkbox'>
-                            <label htmlFor="">Давальческие материалы</label>
+                            <label htmlFor="">Плюсом к цене договора</label>
                             <input
                                 className='checkbox'
                                 type="checkbox"
-                                name='contractMaterials'
+                                name='increaseTotalAmmount'
                                 onChange={changeHandler}
-                                value={form.contractPeriod || ''}
+                                value={form.increaseTotalAmmount || ''}
                             />
                         </div>
                         <div className='partner-form--input'>
@@ -164,4 +143,4 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
     )
 }
 
-export default ContractForm
+export default AddendumForm

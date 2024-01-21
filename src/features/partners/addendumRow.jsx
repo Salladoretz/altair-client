@@ -4,22 +4,67 @@ import HaveOriginal from "../../components/UI/have-original"
 import OtherDocsRow from "./otherDocsRow"
 import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
+import { useDeleteAddendumMutation, useEditAddendumMutation } from "../../app/services/partners"
+import AddendumForm from "./addendumForm"
+
 
 const AddendumRow = (props) => {
 
-    const addendum = props.addendums
+    const { addendum, partnerId, contractId } = props.addendum
 
     const otherDocs = addendum.createdOtherAddendumDocs
 
     const dispatch = useAppDispatch()
 
-    console.log(addendum)
+    const [openAddendumForm, setOpenAddendumForm] = useState(false)
+    const [errorAddendum, setErrorAddendum] = useState(false)
+
+
+    //Редактироване ДС
+    const [editAddendum] = useEditAddendumMutation()
+
+    const editAddendumHandler = async (form) => {
+        try {
+
+            await editAddendum(form).unwrap()
+            setOpenAddendumForm(false)
+
+        } catch (err) {
+            const mayBeError = isErrorWithMessage(err)
+            if (mayBeError) {
+                setErrorAddendum(err.data.message)
+            } else {
+                setErrorAddendum('Что-то случилось при обращении к серверу!')
+            }
+        }
+    }
+
+    //Удаление ДС
+    const [deleteAddendum] = useDeleteAddendumMutation()
+
+    const deleteAddendumHandler = async (id, partnerId, contractId) => {
+        try {
+            let addendumForDelete = {}
+            addendumForDelete.id = id
+            addendumForDelete.partnerId = partnerId
+            addendumForDelete.contractId = contractId
+            await deleteAddendum(addendumForDelete).unwrap()
+        } catch (err) {
+            const mayBeError = isErrorWithMessage(err)
+            if (mayBeError) {
+                setErrorAddendum(err.data.message)
+            } else {
+                setErrorAddendum('Что-то случилось при обращении к серверу!')
+            }
+        }
+    }
+
 
     return (
         <div className='addendum-row'>
             <div className='addendum-row--card'>
                 <div className='addendum-row--title'>
-                    <h4>ДС № {addendum.addendumNumber} от {toLocalDate(addendum.addendumDate)}</h4>
+                    <h4 onDoubleClick={() => setOpenAddendumForm(!openAddendumForm)} >ДС № {addendum.addendumNumber} от {toLocalDate(addendum.addendumDate)}</h4>
                     <h3>{addendum.place.name}</h3>
                 </div>
                 <div>
@@ -28,15 +73,31 @@ const AddendumRow = (props) => {
                         <CloudCopyLink link={addendum.cloudCopy} />
                     </div>
                     <div className='addendum-row--infoBtn'>
+                        <button
+                            onClick={() => deleteAddendumHandler(addendum.id, partnerId, contractId)}
+                        ><DeleteOutlined style={{ 'color': 'red' }} /></button>
                         <button onClick={() => dispatch(toggleCard(addendum))}>Info</button>
                     </div>
                 </div>
                 <div className='addendum-row--numbers'></div>
             </div>
+            {errorAddendum}
             {
                 otherDocs?.map(i =>
                     <OtherDocsRow key={i.id} otherDoc={i} />
                 )
+            }
+            {
+                openAddendumForm
+                    ? <AddendumForm
+                        partnerId={contract.partnerId}
+                        contractId={contract.id}
+                        addendum={addendum}
+                        error={errorAddendum}
+                        buttonName={'Изменить'}
+                        submit={editAddendumHandler}
+                        closeForm={setOpenAddendumForm} />
+                    : ''
             }
         </div>
     )

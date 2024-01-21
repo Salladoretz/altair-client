@@ -1,4 +1,5 @@
-.info-card {
+.info-card
+{
     display: flex;
     flex-direction: column;
     width: 300px;
@@ -7,20 +8,24 @@
     right: 8%;
     font-size: 14px;
     gap: 8px;
+    z-index: 100;
 
-        p{
-           font-size: 12px;
-           line-height: 14px;
-           padding: 4px; 
-        }
+    p
+    {
+        font-size: 12px;
+        line-height: 14px;
+        padding: 4px;
+    }
 
-    .info-card--partner {
+    .info-card--partner
+    {
         @include component();
         position: relative;
         padding: 4px;
     }
 
-    .info-card--contract {
+    .info-card--contract
+    {
         @include component();
         position: relative;
         padding: 4px;

@@ -92,6 +92,7 @@
                 width: 30px;
             }
 
+
             .partners-row--contracts
             {
                 position: absolute;
@@ -101,12 +102,16 @@
                 z-index: 1;
                 width: 100%;
 
-                button
+                .partners-row--contractsBtn
                 {
-                    padding: 1px;
-                    font-size: 12px;
-                    font-weight: 600;
-                    border-radius: 3px;
+                    button
+                    {
+                        padding: 1px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        border-radius: 3px;
+                        width: 100%;
+                    }
                 }
             }
         }
@@ -126,11 +131,12 @@
         display: flex;
         justify-content: space-between;
 
-
         .contract-row--title
         {
+
             h4
             {
+                user-select: none;
                 font-size: 12px;
                 font-weight: 600;
             }
@@ -153,8 +159,8 @@
                 gap: 8px;
             }
         }
-    }
 
+    }
 
     &--info
     {
@@ -274,7 +280,7 @@
 .partner-form
 {
     @include component();
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

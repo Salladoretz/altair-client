@@ -79,7 +79,7 @@ const PartnerRow = ({ partner }) => {
         <div className='partners-row'>
             <div className='partners-row--card'>
                 <div className='partners-row--title'>
-                    <h3 onDoubleClick={() => setOpenPartnerForm(!openPartnerForm)}>{partner.shortName}</h3>
+                    <h3 onDoubleClick={() => setOpenPartnerForm(!openPartnerForm)}>{partner.shortName || partner.name}</h3>
                     <div>{partner.name}</div>
                 </div>
                 <div className='partners-row--info'>
@@ -101,7 +101,7 @@ const PartnerRow = ({ partner }) => {
                     </div>
                 </div>
                 <div className='partners-row--numbers'>
-                    <h3>{contracts?.length}</h3>
+                    <h3>{contracts?.length || 0}</h3>
                     <button onClick={() => setOpenContracts(!openContracts)}>
                         {openContracts
                             ? <MinusCircleTwoTone style={{ 'color': 'blue', 'fontSize': '13px' }} />
@@ -109,33 +109,38 @@ const PartnerRow = ({ partner }) => {
                     </button>
                 </div>
             </div>
-            {openContracts
-                ? <div className='partners-row--contracts' >
-                    <CustomButton onClick={() => setOpenContractForm(!openContractForm)}>+ Добавить контракт</CustomButton>
-                    {contracts.map(item =>
-                        <ContractRow key={item.id} contracts={item} />
-                    )}
-                </div>
-                : ''
+            {
+                openContracts
+                    ? <div className='partners-row--contracts' >
+                        <div className='partners-row--contractsBtn'>
+                            <CustomButton
+                                children={'+ Добавить контракт'}
+                                onClick={() => setOpenContractForm(!openContractForm)}></CustomButton>
+                        </div>
+                        {contracts.map(item =>
+                            <ContractRow key={item.id} contracts={item} />
+                        )}
+                    </div>
+                    : ''
             }
-
-            {openPartnerForm ? <PartnerForm
-                partner={partner}
-                error={errorPartner}
-                setError={setErrorPartner}
-                buttonName={'Изменить'}
-                submit={editPartnerHandler}
-                closeForm={setOpenPartnerForm} /> : ''}
-
-            {openContractForm ? <ContractForm
-                partnerId={partner.id}
-                error={errorContract}
-                buttonName={'Добавить'}
-                submit={addContractHandler}
-                closeForm={setOpenContractForm} /> : ''}
-
-
-        </div>
+            {
+                openPartnerForm ? <PartnerForm
+                    partner={partner}
+                    error={errorPartner}
+                    setError={setErrorPartner}
+                    buttonName={'Изменить'}
+                    submit={editPartnerHandler}
+                    closeForm={setOpenPartnerForm} /> : ''
+            }
+            {
+                openContractForm ? <ContractForm
+                    partnerId={partner.id}
+                    error={errorContract}
+                    buttonName={'Добавить'}
+                    submit={addContractHandler}
+                    closeForm={setOpenContractForm} /> : ''
+            }
+        </div >
     )
 }
 
