@@ -11,9 +11,7 @@ import { isErrorWithMessage } from "../../app/utils/error-checker"
 import { DeleteOutlined } from "@ant-design/icons"
 
 
-const AddendumRow = (props) => {
-
-    const { addendum, partnerId, contractId } = props.addendum
+const AddendumRow = ({ addendum, partnerId, contractId }) => {
 
     const otherAddendumDocs = addendum?.createdOtherAddendumDocs || []
 

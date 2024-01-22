@@ -79,20 +79,18 @@ const ContractRow = (props) => {
         catch (err) {
             const mayBeError = isErrorWithMessage(err)
             if (mayBeError) {
-                setErrorContract(err.data.message)
+                setErrorAddendum(err.data.message)
             } else {
-                setErrorContract('Что-то случилось при обращении к серверу!')
+                setErrorAddendum('Что-то случилось при обращении к серверу!')
             }
         }
     }
 
     return (
         <div className='contract-row'>
-
             <div className='contract-row--card'>
                 <div className='contract-row--title'>
                     <h4 onDoubleClick={() => setOpenContractForm(!openContractForm)}>Договор № {contract.contractNumber} от {toRuDate(contract.contractDate)}</h4>
-                    <p>{contract.partner?.shortName}</p>
                     <div>
                         <h3>{contract.place?.name}</h3>
                         <p>Тип: {contract.contractType?.title}</p>
@@ -168,7 +166,6 @@ const ContractRow = (props) => {
                         closeForm={setOpenAddendumForm} />
                     : ''
             }
-
         </div >
     )
 }

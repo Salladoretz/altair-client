@@ -6,8 +6,8 @@ const OtherDocsRow = (props) => {
 
     return (
         <div className='other-docs-row'>
-            <div>{info.otherDocType.title}</div>
-            <div><CloudCopyLink link={info.cloudCopy} /></div>
+            <div>{info?.otherDocType.title}</div>
+            <div><CloudCopyLink link={info?.cloudCopy} /></div>
         </div>
     )
 }

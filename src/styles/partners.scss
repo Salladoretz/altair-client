@@ -123,13 +123,13 @@
     @include component();
     font-size: 10px;
     margin-bottom: 8px;
-    padding: 8px;
     background: $bg-contract;
 
     .contract-row--card
     {
         display: flex;
         justify-content: space-between;
+        padding: 8px;
 
         .contract-row--title
         {
