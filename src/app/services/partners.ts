@@ -1,5 +1,5 @@
 import { api } from './api'
-import { TPartner, TContract, TAddendum } from '../../types'
+import { TPartner, TContract, TAddendum, TOtherContractDoc } from '../../types'
 
 
 type TPartnerForAdd = Omit<TPartner, 'id' | 'createdContract'>
@@ -15,6 +15,13 @@ type TContractForDelete = {
 type TAddendumForAdd = Omit<TAddendum, 'id' | 'createdOtherAddendumDocs'>
 type TAddendumForEdit = Omit<TAddendum, 'createdOtherAddendumDocs'>
 type TAddendumForDelete = {
+    id: string,
+    partnerId: string,
+    contractId: string
+}
+
+type TOtherContractDocAdd = Omit<TOtherContractDoc, 'id'>
+type TOtherContractDocDelete = {
     id: string,
     partnerId: string,
     contractId: string
@@ -91,6 +98,27 @@ export const partnersApi = api.injectEndpoints({
                 method: 'DELETE',
                 body: addendumForDelete
             })
+        }),
+        addOtherContractDoc: builder.mutation<TOtherContractDoc, TOtherContractDocAdd>({
+            query: (otherContractDocForAdd) => ({
+                url: '/othercontractdoc/add',
+                method: 'POST',
+                body: otherContractDocForAdd
+            })
+        }),
+        editOtherContractDoc: builder.mutation<TOtherContractDoc, TOtherContractDoc>({
+            query: (otherContractDocForEdit) => ({
+                url: '/othercontractdoc/edit',
+                method: 'PUT',
+                body: otherContractDocForEdit
+            })
+        }),
+        deleteOtherContractDoc: builder.mutation<TOtherContractDocDelete, string>({
+            query: (otherContractDocForDelete) => ({
+                url: '/othercontractdoc/delete',
+                method: 'DELETE',
+                body: otherContractDocForDelete
+            })
         })
     })
 })
@@ -106,7 +134,10 @@ export const {
     useDeleteContractMutation,
     useAddAddendumMutation,
     useEditAddendumMutation,
-    useDeleteAddendumMutation
+    useDeleteAddendumMutation,
+    useAddOtherContractDocMutation,
+    useEditOtherContractDocMutation,
+    useDeleteOtherContractDocMutation
 } = partnersApi
 
 export const { endpoints: {
@@ -119,5 +150,8 @@ export const { endpoints: {
     deleteContract,
     addAddendum,
     editAddendum,
-    deleteAddendum
+    deleteAddendum,
+    addOtherContractDoc,
+    editOtherContractDoc,
+    deleteOtherContractDoc
 } } = partnersApi

@@ -60,7 +60,6 @@ const AddendumRow = ({ addendum, partnerId, contractId }) => {
         }
     }
 
-    console.log(addendum)
 
     return (
         <div className='addendum-row'>

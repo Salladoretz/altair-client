@@ -62,6 +62,22 @@ const slice = createSlice({
                 let indexContract = state.partners[indexPartner].createdContract.findIndex(el => el.id === action.payload.contractId)
                 state.partners[indexPartner].createdContract[indexContract].createdAddendum = state.partners[indexPartner].createdContract[indexContract].createdAddendum.filter(el => el.id !== action.payload.id)
             })
+            .addMatcher(partnersApi.endpoints.addOtherContractDoc.matchFulfilled, (state, action) => {
+                let indexPartner = state.partners.findIndex(el => el.id === action.payload.partnerId)
+                let indexContract = state.partners[indexPartner].createdContract.findIndex(el => el.id === action.payload.contractId)
+                if (indexContract !== -1) { state.partners[indexPartner].createdContract[indexContract].createdOtherContractDocs.push(action.payload) }
+            })
+            .addMatcher(partnersApi.endpoints.editOtherContractDoc.matchFulfilled, (state, action) => {
+                let indexPartner = state.partners.findIndex(el => el.id === action.payload.partnerId)
+                let indexContract = state.partners[indexPartner].createdContract.findIndex(el => el.id === action.payload.contractId)
+                let indexOtherContractDoc = state.partners[indexPartner].createdContract[indexContract].createdOtherContractDocs.findIndex(el => el.id === action.payload.id)
+                if (indexOtherContractDoc !== -1) { state.partners[indexPartner].createdContract[indexContract].createdOtherContractDocs[indexOtherContractDoc] = action.payload }
+            })
+            .addMatcher(partnersApi.endpoints.deleteOtherContractDoc.matchFulfilled, (state, action) => {
+                let indexPartner = state.partners.findIndex(el => el.id === action.payload.partnerId)
+                let indexContract = state.partners[indexPartner].createdContract.findIndex(el => el.id === action.payload.contractId)
+                state.partners[indexPartner].createdContract[indexContract].createdOtherContractDocs = state.partners[indexPartner].createdContract[indexContract].createdOtherContractDocs.filter(el => el.id !== action.payload.id)
+            })
     }
 })
 

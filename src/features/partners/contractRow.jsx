@@ -7,11 +7,12 @@ import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
 import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
-import { useDeleteContractMutation, useEditContractMutation, useAddAddendumMutation } from "../../app/services/partners"
+import { useDeleteContractMutation, useEditContractMutation, useAddAddendumMutation, useAddOtherContractDocMutation } from "../../app/services/partners"
 import { isErrorWithMessage } from "../../app/utils/error-checker"
 import ContractForm from "./contractForm"
 import CustomButton from "../../components/UI/custom-button"
 import AddendumForm from "./addendumForm"
+import OtherContractDocForm from "./otherContractDocForm"
 
 
 const ContractRow = (props) => {
@@ -20,6 +21,7 @@ const ContractRow = (props) => {
 
     const [openAddendums, setOpenAddendums] = useState(false)
     const [openAddendumForm, setOpenAddendumForm] = useState(false)
+    const [openOtherContractDocForm, setOpenOtherContractDocForm] = useState(false)
 
     const [errorContract, setErrorContract] = useState(false)
 
@@ -86,6 +88,25 @@ const ContractRow = (props) => {
         }
     }
 
+    //Добавление иного документа
+    const [addOtherContractDoc] = useAddOtherContractDocMutation()
+    const [errorOtherContractDoc, setErrorOtherContractDoc] = useState('')
+
+    const addOtherContractDocHandler = async (form) => {
+        try {
+            await addOtherContractDoc(form).unwrap()
+            setOpenOtherContractDocForm(false)
+        }
+        catch (err) {
+            const mayBeError = isErrorWithMessage(err)
+            if (mayBeError) {
+                setErrorOtherContractDoc(err.data.message)
+            } else {
+                setErrorOtherContractDoc('Что-то случилось при обращении к серверу!')
+            }
+        }
+    }
+
     return (
         <div className='contract-row'>
             <div className='contract-row--card'>
@@ -126,9 +147,14 @@ const ContractRow = (props) => {
                         <div className='partners-row--contractsBtn'>
                             <CustomButton
                                 children={'+ Добавить ДС'}
-                                onClick={() => setOpenAddendumForm(!openAddendumForm)}></CustomButton>
+                                onClick={() => setOpenAddendumForm(!openAddendumForm)}>
+                            </CustomButton>
+                            <CustomButton
+                                children={'+ Добавить иное'}
+                                onClick={() => setOpenOtherContractDocForm(!openOtherContractDocForm)}>
+                            </CustomButton>
                         </div>
-                        {addendums.map(item =>
+                        {addendums?.map(item =>
                             <AddendumRow
                                 key={item.id}
                                 addendum={item}
@@ -164,6 +190,17 @@ const ContractRow = (props) => {
                         buttonName={'Добавить'}
                         submit={addAddendumHandler}
                         closeForm={setOpenAddendumForm} />
+                    : ''
+            }
+            {
+                openOtherContractDocForm
+                    ? <OtherContractDocForm
+                        partnerId={contract.partnerId}
+                        contractId={contract.id}
+                        error={errorOtherContractDoc}
+                        buttonName={'Добавить'}
+                        submit={addOtherContractDocHandler}
+                        closeForm={setOpenOtherContractDocForm} />
                     : ''
             }
         </div >

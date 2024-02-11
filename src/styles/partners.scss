@@ -104,6 +104,9 @@
 
                 .partners-row--contractsBtn
                 {
+                    display: flex;
+                    gap: 4px;
+
                     button
                     {
                         padding: 1px;
