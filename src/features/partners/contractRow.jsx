@@ -17,9 +17,9 @@ import OtherContractDocForm from "./otherContractDocForm"
 
 const ContractRow = (props) => {
 
-    const [openContractForm, setOpenContractForm] = useState(false)
+    const [openCard, setOpenCard] = useState(false)
 
-    const [openAddendums, setOpenAddendums] = useState(false)
+    const [openContractForm, setOpenContractForm] = useState(false)
     const [openAddendumForm, setOpenAddendumForm] = useState(false)
     const [openOtherContractDocForm, setOpenOtherContractDocForm] = useState(false)
 
@@ -106,7 +106,7 @@ const ContractRow = (props) => {
             }
         }
     }
-
+    console.log(contract)
     return (
         <div className='contract-row'>
             <div className='contract-row--card'>
@@ -133,8 +133,8 @@ const ContractRow = (props) => {
                 </div>
                 <div className='contract-row--numbers'>
                     <h3>{addendums?.length || 0}</h3>
-                    <button onClick={() => setOpenAddendums(!openAddendums)}>
-                        {openAddendums
+                    <button onClick={() => setOpenCard(!openCard)}>
+                        {openCard
                             ? <MinusCircleTwoTone style={{ 'color': 'blue', 'fontSize': '13px' }} />
                             : <PlusCircleTwoTone style={{ 'color': 'blue', 'fontSize': '13px' }} />}
                     </button>
@@ -142,7 +142,7 @@ const ContractRow = (props) => {
             </div>
             {errorContract}
             {
-                openAddendums
+                openCard
                     ? <div className='partners-row--contracts' >
                         <div className='partners-row--contractsBtn'>
                             <CustomButton
@@ -162,11 +162,13 @@ const ContractRow = (props) => {
                                 contractId={contract.id}
                             />
                         )}
-                        <div>
-                            {otherDocs?.map(item =>
-                                <OtherDocsRow key={item.id} otherDoc={item} />
-                            )}
-                        </div>
+                        {otherDocs?.map(item =>
+                            <OtherDocsRow
+                                key={item.id}
+                                otherDoc={item}
+                                partnerId={contract.partnerId}
+                                contractId={contract.id} />
+                        )}
                     </div>
                     : ''
             }
