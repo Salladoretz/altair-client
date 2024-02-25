@@ -11,7 +11,7 @@ const OtherContractDocForm = ({ otherContractDoc, contractId, partnerId, submit,
 
     const [form, setForm] = useState({
         id: otherContractDoc?.id,
-        otherDocType: otherContractDoc?.otherDocTypeId,
+        otherDocTypeId: otherContractDoc?.otherDocTypeId,
         description: otherContractDoc?.description,
         contractId: contractId,
         partnerId: partnerId,
@@ -38,7 +38,7 @@ const OtherContractDocForm = ({ otherContractDoc, contractId, partnerId, submit,
                         <div className='partner-form--input'>
                             <label htmlFor="">Тип документа</label>
                             <select
-                                name='otherDocType'
+                                name='otherDocTypeId'
                                 onChange={changeHandler}>
                                 {otherDocTypes?.map(i =>
                                     <option key={i.id} value={i.id}>{i.title || i.name || ''}</option>

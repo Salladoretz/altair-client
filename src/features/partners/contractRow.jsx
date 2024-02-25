@@ -94,6 +94,7 @@ const ContractRow = (props) => {
 
     const addOtherContractDocHandler = async (form) => {
         try {
+            console.log(form)
             await addOtherContractDoc(form).unwrap()
             setOpenOtherContractDocForm(false)
         }
@@ -106,7 +107,7 @@ const ContractRow = (props) => {
             }
         }
     }
-    console.log(contract)
+
     return (
         <div className='contract-row'>
             <div className='contract-row--card'>

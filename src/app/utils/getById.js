@@ -3,6 +3,9 @@ export const getById = (id, arr) => {
 }
 
 export const getNameById = (id, arr) => {
+    if (id === undefined) {
+        return
+    }
     return arr.find(el => el.id === id).name
 }
 

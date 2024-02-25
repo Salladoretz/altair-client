@@ -11,7 +11,7 @@ const OtherDocsRow = ({ otherDoc, partnerId, contractId }) => {
     const { constractionPlace, otherDocTypes } = useAppSelector(state => state.baseInfo.baseInfo)
 
     const [errorOtherDoc, setErrorOtherDoc] = useState('')
-    console.log(otherDoc)
+
     //Удаление ДС
     const [deleteOtherContractDoc] = useDeleteOtherContractDocMutation()
 
@@ -35,8 +35,8 @@ const OtherDocsRow = ({ otherDoc, partnerId, contractId }) => {
     //<div>{getNameById(otherDoc.placeId, constractionPlace)}</div>
     return (
         <div className='other-docs-row'>
-            <div>{otherDoc ? getTitleById(otherDoc.otherDocTypeId, otherDocTypes) : ''}</div>
-            <div>{otherDoc ? getNameById(otherDoc.placeId, constractionPlace) : ''}</div>
+            <div>{otherDoc.otherDocTypeId ? getTitleById(otherDoc.otherDocTypeId, otherDocTypes) : ''}</div>
+            <div>{otherDoc.partnerId ? getNameById(otherDoc.placeId, constractionPlace) : ''}</div>
             <div>{otherDoc?.description}</div>
             <button
                 onClick={() => deleteOtherContractDocHandler(otherDoc.id, partnerId, contractId)}
