@@ -36,7 +36,7 @@ const ContractRow = (props) => {
 
     const editContractHandler = async (form) => {
         try {
-
+            console.log(form)
             await editContract(form).unwrap()
             setOpenContractForm(false)
 

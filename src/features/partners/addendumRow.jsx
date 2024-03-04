@@ -1,7 +1,6 @@
 import { toLocalDate } from "../../app/utils/date-formatter"
 import CloudCopyLink from "../../components/UI/cloud-copy-link"
 import HaveOriginal from "../../components/UI/have-original"
-import OtherDocsRow from "./otherDocsRow"
 import { useAppDispatch } from "../../app/hooks"
 import { toggleCard } from "../../components/info-cards/infoCardSlice"
 import { useDeleteAddendumMutation, useEditAddendumMutation } from "../../app/services/partners"
@@ -12,8 +11,6 @@ import { DeleteOutlined } from "@ant-design/icons"
 
 
 const AddendumRow = ({ addendum, partnerId, contractId }) => {
-
-    const otherAddendumDocs = addendum?.createdOtherAddendumDocs || []
 
     const dispatch = useAppDispatch()
 
@@ -83,12 +80,6 @@ const AddendumRow = ({ addendum, partnerId, contractId }) => {
                 <div className='addendum-row--numbers'></div>
             </div>
             {errorAddendum}
-            {otherAddendumDocs
-                ? otherAddendumDocs?.map(i =>
-                    <OtherDocsRow key={i.id} otherAddendumDocs={i} />
-                )
-                : ''
-            }
             {
                 openAddendumForm
                     ? <AddendumForm

@@ -271,11 +271,19 @@
 
 .other-docs-row
 {
-    background: $bg-other-doc;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 4px;
+    background: $bg-other-doc;
     padding: 4px;
     border-radius: 4px;
+    box-shadow: $box-shadow;
+
+    &--top
+    {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 

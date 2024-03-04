@@ -104,8 +104,8 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
                                 className='checkbox'
                                 type="checkbox"
                                 name='contractMaterials'
-                                onChange={changeHandler}
-                                value={form.contractPeriod || ''}
+                                onChange={event => setForm({ ...form, [event.target.name]: !form.contractMaterials })}
+                                checked={form.contractMaterials}
                             />
                         </div>
                         <div className='partner-form--input'>
@@ -123,9 +123,9 @@ const ContractForm = ({ contract, partnerId, submit, error, setError, buttonName
                             <input
                                 className='checkbox'
                                 type="checkbox"
-                                name='contractMaterials'
-                                onChange={changeHandler}
-                                value={form.original || ''}
+                                name='original'
+                                onChange={event => setForm({ ...form, [event.target.name]: !form.original })}
+                                checked={form.original}
                             />
                         </div>
                         <div className='partner-form--input'>

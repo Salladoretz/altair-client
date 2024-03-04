@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import CustomButton from '../../components/UI/custom-button'
 import CustomCloseButton from '../../components/UI/custom-close-button'
-import { toLocalDate } from '../../app/utils/date-formatter'
 import { useAppSelector } from '../../app/hooks'
 
 
@@ -70,9 +69,9 @@ const OtherContractDocForm = ({ otherContractDoc, contractId, partnerId, submit,
                             <input
                                 className='checkbox'
                                 type="checkbox"
-                                name='contractMaterials'
-                                onChange={changeHandler}
-                                value={form.original || ''}
+                                name='original'
+                                onChange={event => setForm({ ...form, [event.target.name]: !form.original })}
+                                value={form.original}
                             />
                         </div>
                         <div className='partner-form--input'>

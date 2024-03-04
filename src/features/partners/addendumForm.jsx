@@ -83,8 +83,8 @@ const AddendumForm = ({ addendum, contractId, partnerId, submit, error, setError
                                 className='checkbox'
                                 type="checkbox"
                                 name='increaseTotalAmmount'
-                                onChange={changeHandler}
-                                value={form.increaseTotalAmmount || ''}
+                                onChange={event => setForm({ ...form, [event.target.name]: !form.increaseTotalAmmount })}
+                                value={form.increaseTotalAmmount}
                             />
                         </div>
                         <div className='partner-form--input'>
@@ -102,9 +102,9 @@ const AddendumForm = ({ addendum, contractId, partnerId, submit, error, setError
                             <input
                                 className='checkbox'
                                 type="checkbox"
-                                name='contractMaterials'
-                                onChange={changeHandler}
-                                value={form.original || ''}
+                                name='original'
+                                onChange={event => setForm({ ...form, [event.target.name]: !form.original })}
+                                value={form.original}
                             />
                         </div>
                         <div className='partner-form--input'>

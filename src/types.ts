@@ -65,8 +65,7 @@ export type TAddendum = {
     cloudCopy: string,
     contractId: string,
     partnerId: string,
-    comments: string,
-    createdOtherAddendumDocs: [{}]
+    comments: string
 }
 
 export type TOtherContractDoc = {
